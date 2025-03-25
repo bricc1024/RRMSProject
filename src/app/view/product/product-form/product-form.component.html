@@ -1,1 +1,242 @@
-<p>product-form works!</p>
+<div
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  (mousedown)="onClose()"
+>
+  <div
+    class="bg-white w-full max-w-2xl rounded-xl shadow-xl p-6 relative overflow-y-auto max-h-[90vh]"
+    (mousedown)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-4xl cursor-pointer"
+      (click)="onClose()"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold mb-6">Add New Product</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input
+            formControlName="name"
+            type="text"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="form.get('name')?.touched && form.get('name')?.invalid"
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('name')?.errors?.['required']">
+              Name is required.
+            </div>
+            <div *ngIf="form.get('name')?.errors?.['maxlength']">
+              Max 100 characters.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Category</label>
+          <input
+            formControlName="category"
+            type="text"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="
+              form.get('category')?.touched && form.get('category')?.invalid
+            "
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('category')?.errors?.['required']">
+              Category is required.
+            </div>
+            <div *ngIf="form.get('category')?.errors?.['maxlength']">
+              Max 50 characters.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Price</label>
+          <input
+            formControlName="price"
+            type="number"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="form.get('price')?.touched && form.get('price')?.invalid"
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('price')?.errors?.['required']">
+              Price is required.
+            </div>
+            <div *ngIf="form.get('price')?.errors?.['min']">
+              Must be at least 0.01.
+            </div>
+            <div *ngIf="form.get('price')?.errors?.['max']">
+              Cannot exceed 100,000.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Stock</label>
+          <input
+            formControlName="stock"
+            type="number"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="form.get('stock')?.touched && form.get('stock')?.invalid"
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('stock')?.errors?.['required']">
+              Stock is required.
+            </div>
+            <div *ngIf="form.get('stock')?.errors?.['min']">
+              Cannot be negative.
+            </div>
+            <div *ngIf="form.get('stock')?.errors?.['max']">
+              Cannot exceed 10,000.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">SKU</label>
+          <input
+            formControlName="sku"
+            type="text"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="form.get('sku')?.touched && form.get('sku')?.invalid"
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('sku')?.errors?.['required']">
+              SKU is required.
+            </div>
+            <div *ngIf="form.get('sku')?.errors?.['maxlength']">
+              Max 50 characters.
+            </div>
+            <div *ngIf="form.get('sku')?.errors?.['pattern']">
+              Only uppercase letters, numbers, - and _ allowed.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Image URL</label>
+          <input
+            formControlName="image_url"
+            type="text"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="
+              form.get('image_url')?.touched && form.get('image_url')?.invalid
+            "
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('image_url')?.errors?.['required']">
+              Image URL is required.
+            </div>
+            <div *ngIf="form.get('image_url')?.errors?.['pattern']">
+              Must be a valid image URL (.jpg, .png, etc.).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Description</label>
+        <textarea
+          formControlName="description"
+          class="w-full border border-gray-300 rounded px-3 py-2"
+          rows="4"
+        ></textarea>
+        <div
+          *ngIf="
+            form.get('description')?.touched && form.get('description')?.invalid
+          "
+          class="text-sm text-red-500 mt-1"
+        >
+          <div *ngIf="form.get('description')?.errors?.['required']">
+            Description is required.
+          </div>
+          <div *ngIf="form.get('description')?.errors?.['maxlength']">
+            Max 300 characters.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4" formGroupName="rating">
+        <div>
+          <label class="block text-sm font-medium mb-1">Rating (Rate)</label>
+          <input
+            formControlName="rate"
+            type="number"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="
+              form.get('rating.rate')?.touched &&
+              form.get('rating.rate')?.invalid
+            "
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('rating.rate')?.errors?.['required']">
+              Rating is required.
+            </div>
+            <div *ngIf="form.get('rating.rate')?.errors?.['min']">
+              Must be at least 0.
+            </div>
+            <div *ngIf="form.get('rating.rate')?.errors?.['max']">
+              Cannot exceed 5.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Rating (Count)</label>
+          <input
+            formControlName="count"
+            type="number"
+            class="w-full border border-gray-300 rounded px-3 py-2"
+          />
+          <div
+            *ngIf="
+              form.get('rating.count')?.touched &&
+              form.get('rating.count')?.invalid
+            "
+            class="text-sm text-red-500 mt-1"
+          >
+            <div *ngIf="form.get('rating.count')?.errors?.['required']">
+              Rating count is required.
+            </div>
+            <div *ngIf="form.get('rating.count')?.errors?.['min']">
+              Must be at least 0.
+            </div>
+            <div *ngIf="form.get('rating.count')?.errors?.['max']">
+              Cannot exceed 100,000.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 flex justify-end">
+        <button
+          type="submit"
+          class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer disabled:cursor-default"
+          [disabled]="form.invalid"
+        >
+          Save Product
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

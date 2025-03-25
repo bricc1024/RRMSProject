@@ -15,13 +15,23 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[] | null> {
-    if (this.productsSubject.value) {
-      return this.products$;
+  getProducts(): void {
+    if (!this.productsSubject.value) {
+      this.http.get<Product[]>(this.url).subscribe((products) => {
+        this.productsSubject.next(products);
+      });
     }
+  }
 
-    return this.http
-      .get<Product[]>(this.url)
-      .pipe(tap((products) => this.productsSubject.next(products)));
+  getNextId(): string {
+    const current = this.productsSubject.value ?? [];
+    const lastId =
+      current.length > 0 ? Number(current[current.length - 1].id) : 0;
+    return (lastId + 1).toString();
+  }
+
+  addProduct(product: Product): void {
+    const current = this.productsSubject.value ?? [];
+    this.productsSubject.next([...current, product]);
   }
 }

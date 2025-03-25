@@ -1,1 +1,9 @@
-<p>product-card works!</p>
+<div
+  class="bg-white shadow-md rounded-2xl p-4 cursor-pointer hover:shadow-lg transition"
+  (click)="onSelect()"
+>
+  <h2 class="text-xl font-semibold mb-2">{{ product.name }}</h2>
+  <p class="text-sm text-gray-600">Category: {{ product.category }}</p>
+  <p class="text-sm text-gray-600">Price: ${{ product.price }}</p>
+  <p class="text-sm text-gray-600">In Stock: {{ product.stock }}</p>
+</div>

@@ -1,1 +1,48 @@
-<p>product-detail works!</p>
+<div
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  (mousedown)="onClose()"
+>
+  <div
+    class="bg-white w-full max-w-2xl rounded-xl shadow-xl p-6 relative"
+    (mousedown)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-4xl cursor-pointer"
+      (click)="onClose()"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-semibold mb-4">{{ product.name }}</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <p><span class="font-medium">Price:</span> ${{ product.price }}</p>
+      <p><span class="font-medium">Category:</span> {{ product.category }}</p>
+      <p><span class="font-medium">In Stock:</span> {{ product.stock }}</p>
+      <p><span class="font-medium">SKU:</span> {{ product.sku }}</p>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="font-semibold mb-1">Description</h3>
+      <p class="text-gray-700">{{ product.description }}</p>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="font-semibold mb-1">Rating</h3>
+      <ng-container *ngIf="product.rating; else noRating">
+        <p class="text-gray-700">
+          {{ product.rating.rate }} / 5 ({{ product.rating.count }} ratings)
+        </p>
+      </ng-container>
+      <ng-template #noRating>
+        <p class="text-gray-500 italic">No rating available</p>
+      </ng-template>
+    </div>
+
+    <div class="mb-2">
+      <h3 class="font-semibold mb-1">Image URL</h3>
+      <p class="text-blue-600 break-words">{{ product.image_url }}</p>
+    </div>
+  </div>
+</div>
