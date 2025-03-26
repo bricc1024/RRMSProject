@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 import { User } from '../model/user.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  private url = 'https://api.jsoning.com/mock/public/users';
-
-  private usersSubject = new BehaviorSubject<User[] | null>(null);
-  public users$ = this.usersSubject.asObservable();
+  private readonly url = 'https://api.jsoning.com/mock/public/users';
+  private readonly subject = new BehaviorSubject<User[] | null>(null);
+  public readonly users$ = this.subject.asObservable().pipe(filter(Boolean));
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[] | null> {
-    if (this.usersSubject.value) {
-      return this.users$;
+  getUsers(): Observable<User[]> {
+    if (!this.subject.value) {
+      this.http
+        .get<User[]>(this.url)
+        .pipe(tap((users) => this.subject.next(users)))
+        .subscribe();
     }
-
-    return this.http
-      .get<User[]>(this.url)
-      .pipe(tap((users) => this.usersSubject.next(users)));
+    return this.users$;
   }
 }

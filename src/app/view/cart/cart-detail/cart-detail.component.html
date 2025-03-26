@@ -1,1 +1,48 @@
-<p>cart-detail works!</p>
+<div
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  (mousedown)="onClose()"
+>
+  <div
+    class="bg-white w-full max-w-3xl rounded-xl shadow-xl p-6 relative overflow-y-auto max-h-[90vh]"
+    (mousedown)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-4xl cursor-pointer"
+      (click)="onClose()"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-semibold mb-4">Cart Details</h2>
+
+    <div *ngIf="user() as u" class="mb-6">
+      <h3 class="text-lg font-semibold mb-2">User Info</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+        <p>
+          <span class="font-medium">Name:</span> {{ u.firstname }}
+          {{ u.lastname }}
+        </p>
+        <p><span class="font-medium">Email:</span> {{ u.email }}</p>
+        <p>
+          <span class="font-medium">Location:</span> {{ u.city }},
+          {{ u.state }} {{ u.zipcode }}
+        </p>
+        <p><span class="font-medium">Phone:</span> {{ u.phone }}</p>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-2">Items</h3>
+      <div *ngFor="let item of cartItemsDetailed()" class="mb-3 border-b pb-2">
+        <p class="font-medium">
+          {{ item.product?.name || "Unknown Product" }}
+        </p>
+        <p class="text-sm text-gray-600 italic">
+          {{ item.product?.description || "No description available" }}
+        </p>
+        <p class="text-sm text-gray-700">Quantity: {{ item.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div>

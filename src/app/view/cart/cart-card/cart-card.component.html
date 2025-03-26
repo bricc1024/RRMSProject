@@ -1,1 +1,10 @@
-<p>cart-card works!</p>
+<div
+  *ngIf="cart() as c"
+  class="bg-white shadow-md rounded-2xl p-4 cursor-pointer hover:shadow-lg transition"
+  (click)="onSelect()"
+>
+  <h2 class="text-xl font-semibold mb-2">{{ fullName() }}</h2>
+  <p class="text-sm text-gray-600">Date: {{ c.date | date : "mediumDate" }}</p>
+  <p class="text-sm text-gray-600">Status: {{ c.status }}</p>
+  <p class="text-sm text-gray-600">Items: {{ itemCount() }}</p>
+</div>
