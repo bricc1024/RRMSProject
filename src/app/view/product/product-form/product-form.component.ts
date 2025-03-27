@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, HostListener, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Product } from '../../../shared/model/product.model';
@@ -11,6 +11,7 @@ import { Product } from '../../../shared/model/product.model';
 export class ProductFormComponent {
   save = output<Omit<Product, 'id'>>();
   close = output<void>();
+  submitConfirm = input.required<boolean>();
 
   form;
 
@@ -64,5 +65,10 @@ export class ProductFormComponent {
 
   onClose() {
     this.close.emit();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEsc() {
+    this.onClose();
   }
 }

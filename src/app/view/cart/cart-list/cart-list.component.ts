@@ -5,7 +5,7 @@ import { ProductService } from '../../../shared/service/product.service';
 import { Cart } from '../../../shared/model/cart.model';
 import { User } from '../../../shared/model/user.model';
 import { Product } from '../../../shared/model/product.model';
-import { combineLatest, tap } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { CartCardComponent } from '../cart-card/cart-card.component';
 import { CartDetailComponent } from '../cart-detail/cart-detail.component';
@@ -23,6 +23,12 @@ export class CartListComponent implements OnInit {
 
   selectedCart: Cart | null = null;
   loading = signal(true);
+
+  constructor(
+    private cartService: CartService,
+    private userService: UserService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     combineLatest([
@@ -48,10 +54,4 @@ export class CartListComponent implements OnInit {
   onSelectCart(cart: Cart) {
     this.selectedCart = this.selectedCart === cart ? null : cart;
   }
-
-  constructor(
-    private cartService: CartService,
-    private userService: UserService,
-    private productService: ProductService
-  ) {}
 }

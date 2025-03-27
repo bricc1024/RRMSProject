@@ -6,9 +6,9 @@ import { Cart } from '../model/cart.model';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private readonly url = 'https://api.jsoning.com/mock/public/carts';
-  private readonly subject = new BehaviorSubject<Cart[] | null>(null);
-  public readonly carts$ = this.subject.asObservable().pipe(filter(Boolean));
+  private url = 'https://api.jsoning.com/mock/public/carts';
+  private subject = new BehaviorSubject<Cart[] | null>(null);
+  public carts$ = this.subject.asObservable().pipe(filter(Boolean));
 
   constructor(private http: HttpClient) {}
 

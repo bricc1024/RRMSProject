@@ -38,7 +38,7 @@
     <app-cart-detail
       *ngIf="selectedCart"
       [cart]="selectedCart"
-      [user]="getUser(selectedCart.userId)!"
+      [user]="getUser(selectedCart.userId)"
       [productMap]="getProductMap()"
       (close)="onSelectCart(selectedCart)"
     />
@@ -49,7 +49,7 @@
       <app-cart-card
         *ngFor="let cart of carts"
         [cart]="cart"
-        [user]="getUser(cart.userId)!"
+        [user]="getUser(cart.userId)"
         (select)="onSelectCart(cart)"
       />
     </div>

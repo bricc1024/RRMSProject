@@ -20,9 +20,9 @@ export class CartDetailComponent {
   user = input<User>();
   productMap = input<Map<number, Product>>();
 
-  readonly close = output<void>();
+  close = output<void>();
 
-  readonly cartItemsDetailed = computed(() => {
+  cartItemsDetailed = computed(() => {
     const map = this.productMap();
     return this.cart()?.items.map((item) => ({
       ...item,

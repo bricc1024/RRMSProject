@@ -6,9 +6,9 @@ import { User } from '../model/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private readonly url = 'https://api.jsoning.com/mock/public/users';
-  private readonly subject = new BehaviorSubject<User[] | null>(null);
-  public readonly users$ = this.subject.asObservable().pipe(filter(Boolean));
+  private url = 'https://api.jsoning.com/mock/public/users';
+  private subject = new BehaviorSubject<User[] | null>(null);
+  public users$ = this.subject.asObservable().pipe(filter(Boolean));
 
   constructor(private http: HttpClient) {}
 

@@ -22,6 +22,7 @@ export class ProductListComponent {
   products$;
   selectedProduct = signal<Product | null>(null);
   showForm = signal(false);
+  submitConfirm = signal(false);
   loading;
 
   constructor(private productService: ProductService) {
@@ -30,25 +31,28 @@ export class ProductListComponent {
     this.productService.getProducts();
   }
 
-  handleSelect(product: Product) {
+  openDetail(product: Product) {
     this.selectedProduct.set(product);
     this.showForm.set(false);
   }
 
-  handleCloseDetail() {
+  closeDetail() {
     this.selectedProduct.set(null);
   }
 
-  toggleForm() {
-    this.showForm.set(!this.showForm());
+  openForm() {
+    this.submitConfirm.set(false);
+    this.showForm.set(true);
     this.selectedProduct.set(null);
   }
 
-  handleProductSave(partial: Omit<Product, 'id'>) {
+  saveProduct(partial: Omit<Product, 'id'>) {
     const id = this.productService.getNextId();
     const fullProduct: Product = { id, ...partial };
-
+    this.submitConfirm.set(true);
     this.productService.addProduct(fullProduct);
-    this.showForm.set(false);
+    setTimeout(() => {
+      this.showForm.set(false);
+    }, 1500);
   }
 }
