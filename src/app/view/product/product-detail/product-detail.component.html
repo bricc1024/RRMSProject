@@ -1,0 +1,62 @@
+<div
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  (mousedown)="onClose()"
+>
+  <div
+    class="bg-white w-full max-w-2xl rounded-xl shadow-xl p-6 relative"
+    (mousedown)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-4xl cursor-pointer"
+      (click)="onClose()"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-extrabold text-black mb-6">
+      {{ product().name }}
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-6 text-sm">
+      <p>
+        <span class="text-black font-medium">Price:</span>
+        <span class="text-gray-700"> ${{ product().price }}</span>
+      </p>
+      <p>
+        <span class="text-black font-medium">Category:</span>
+        <span class="text-gray-700"> {{ product().category }}</span>
+      </p>
+      <p>
+        <span class="text-black font-medium">In Stock:</span>
+        <span class="text-gray-700"> {{ product().stock }}</span>
+      </p>
+      <p>
+        <span class="text-black font-medium">SKU:</span>
+        <span class="text-gray-700"> {{ product().sku }}</span>
+      </p>
+    </div>
+
+    <div class="mb-5">
+      <h3 class="text-base font-semibold text-black mb-1">Description</h3>
+      <p class="text-gray-700 text-sm">{{ product().description }}</p>
+    </div>
+
+    <div class="mb-5">
+      <h3 class="text-base font-semibold text-black mb-1">Rating</h3>
+      <ng-container *ngIf="product().rating; else noRating">
+        <p class="text-gray-700 text-sm">
+          {{ product().rating.rate }} / 5 ({{ product().rating.count }} ratings)
+        </p>
+      </ng-container>
+      <ng-template #noRating>
+        <p class="text-gray-500 italic text-sm">No rating available</p>
+      </ng-template>
+    </div>
+
+    <div>
+      <h3 class="text-base font-semibold text-black mb-1">Image URL</h3>
+      <p class="text-blue-600 break-words text-sm">{{ product().image_url }}</p>
+    </div>
+  </div>
+</div>

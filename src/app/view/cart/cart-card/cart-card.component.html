@@ -1,0 +1,15 @@
+<div
+  *ngIf="cart() as c"
+  class="rounded-xl bg-white border border-gray-200 p-4 hover:bg-gray-50 hover:shadow-md transition-all duration-200 cursor-pointer"
+  (click)="onSelect()"
+>
+  <h2 class="text-lg font-semibold text-black mb-2 truncate">
+    {{ fullName() }}
+  </h2>
+
+  <p class="text-sm text-gray-500 mb-1">
+    Date: {{ c.date | date : "mediumDate" }}
+  </p>
+  <p class="text-sm text-gray-500 mb-1">Status: {{ c.status }}</p>
+  <p class="text-sm text-gray-500">Items: {{ itemCount() }}</p>
+</div>

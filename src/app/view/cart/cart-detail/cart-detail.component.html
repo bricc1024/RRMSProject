@@ -1,0 +1,67 @@
+<div
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  (mousedown)="onClose()"
+>
+  <div
+    class="bg-white w-full max-w-3xl rounded-xl shadow-xl p-6 relative overflow-y-auto max-h-[90vh]"
+    (mousedown)="$event.stopPropagation()"
+  >
+    <button
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-4xl cursor-pointer"
+      (click)="onClose()"
+      aria-label="Close"
+    >
+      &times;
+    </button>
+
+    <h2 class="text-2xl font-bold text-black mb-6">Cart Details</h2>
+
+    <ng-container *ngIf="user(); else guestUser">
+      <h3 class="text-lg font-semibold text-black mb-3">User Info</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-8">
+        <p>
+          <span class="text-black font-medium">Name:</span>
+          <span class="text-gray-700">
+            {{ user()?.firstname }} {{ user()?.lastname }}</span
+          >
+        </p>
+        <p>
+          <span class="text-black font-medium">Email:</span>
+          <span class="text-gray-700"> {{ user()?.email }}</span>
+        </p>
+        <p>
+          <span class="text-black font-medium">Location:</span>
+          <span class="text-gray-700">
+            {{ user()?.city }}, {{ user()?.state }} {{ user()?.zipcode }}</span
+          >
+        </p>
+        <p>
+          <span class="text-black font-medium">Phone:</span>
+          <span class="text-gray-700"> {{ user()?.phone }}</span>
+        </p>
+      </div>
+    </ng-container>
+
+    <ng-template #guestUser>
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-black mb-2">User Info</h3>
+        <p class="text-sm text-gray-500 italic">
+          This cart was created by a guest user
+        </p>
+      </div>
+    </ng-template>
+
+    <div>
+      <h3 class="text-lg font-semibold text-black mb-3">Items</h3>
+      <div *ngFor="let item of cartItemsDetailed()" class="mb-5 text-sm">
+        <p class="font-semibold text-black">
+          {{ item.product?.name || "Unknown Product" }}
+        </p>
+        <p class="text-gray-500 italic">
+          {{ item.product?.description || "No description available" }}
+        </p>
+        <p class="text-gray-700">Quantity: {{ item.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div>
