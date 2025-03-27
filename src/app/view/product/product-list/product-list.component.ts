@@ -22,8 +22,10 @@ export class ProductListComponent {
   products$;
   selectedProduct = signal<Product | null>(null);
   showForm = signal(false);
+  loading;
 
   constructor(private productService: ProductService) {
+    this.loading = this.productService.loading;
     this.products$ = this.productService.products$;
     this.productService.getProducts();
   }

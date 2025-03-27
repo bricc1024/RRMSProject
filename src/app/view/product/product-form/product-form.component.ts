@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Product } from '../../../shared/model/product.model';
@@ -9,8 +9,8 @@ import { Product } from '../../../shared/model/product.model';
   templateUrl: './product-form.component.html',
 })
 export class ProductFormComponent {
-  @Output() save = new EventEmitter<Omit<Product, 'id'>>();
-  @Output() close = new EventEmitter<void>();
+  save = output<Omit<Product, 'id'>>();
+  close = output<void>();
 
   form;
 

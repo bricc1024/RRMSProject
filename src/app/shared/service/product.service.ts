@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
@@ -6,9 +6,10 @@ import { Product } from '../model/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private readonly url = 'https://api.jsoning.com/mock/public/products';
-  private readonly subject = new BehaviorSubject<Product[] | null>(null);
-  public readonly products$ = this.subject.asObservable().pipe(filter(Boolean));
+  private url = 'https://api.jsoning.com/mock/public/products';
+  private subject = new BehaviorSubject<Product[] | null>(null);
+  public products$ = this.subject.asObservable().pipe(filter(Boolean));
+  public loading = signal(true);
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +17,12 @@ export class ProductService {
     if (!this.subject.value) {
       this.http
         .get<Product[]>(this.url)
-        .pipe(tap((products) => this.subject.next(products)))
+        .pipe(
+          tap((products) => {
+            this.subject.next(products);
+            this.loading.set(false);
+          })
+        )
         .subscribe();
     }
     return this.products$;

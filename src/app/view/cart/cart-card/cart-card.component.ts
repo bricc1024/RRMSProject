@@ -22,7 +22,7 @@ export class CartCardComponent {
 
   readonly fullName = computed(() => {
     const u = this.user();
-    return `${u?.firstname} ${u?.lastname}`;
+    return u ? `${u.firstname} ${u.lastname}` : 'Guest';
   });
 
   readonly itemCount = computed(() => {

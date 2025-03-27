@@ -14,16 +14,16 @@
       &times;
     </button>
 
-    <h2 class="text-2xl font-bold mb-6">Add New Product</h2>
+    <h2 class="text-2xl font-semibold text-black mb-6">Add New Product</h2>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium mb-1">Name</label>
+          <label class="block text-sm font-medium text-black mb-1">Name</label>
           <input
             formControlName="name"
             type="text"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="form.get('name')?.touched && form.get('name')?.invalid"
@@ -39,11 +39,13 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Category</label>
+          <label class="block text-sm font-medium text-black mb-1"
+            >Category</label
+          >
           <input
             formControlName="category"
             type="text"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="
@@ -61,11 +63,11 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Price</label>
+          <label class="block text-sm font-medium text-black mb-1">Price</label>
           <input
             formControlName="price"
             type="number"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="form.get('price')?.touched && form.get('price')?.invalid"
@@ -84,11 +86,11 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Stock</label>
+          <label class="block text-sm font-medium text-black mb-1">Stock</label>
           <input
             formControlName="stock"
             type="number"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="form.get('stock')?.touched && form.get('stock')?.invalid"
@@ -107,11 +109,11 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">SKU</label>
+          <label class="block text-sm font-medium text-black mb-1">SKU</label>
           <input
             formControlName="sku"
             type="text"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="form.get('sku')?.touched && form.get('sku')?.invalid"
@@ -130,11 +132,13 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Image URL</label>
+          <label class="block text-sm font-medium text-black mb-1"
+            >Image URL</label
+          >
           <input
             formControlName="image_url"
             type="text"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="
@@ -153,10 +157,12 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium mb-1">Description</label>
+        <label class="block text-sm font-medium text-black mb-1"
+          >Description</label
+        >
         <textarea
           formControlName="description"
-          class="w-full border border-gray-300 rounded px-3 py-2"
+          class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           rows="4"
         ></textarea>
         <div
@@ -176,11 +182,13 @@
 
       <div class="grid grid-cols-2 gap-4" formGroupName="rating">
         <div>
-          <label class="block text-sm font-medium mb-1">Rating (Rate)</label>
+          <label class="block text-sm font-medium text-black mb-1"
+            >Rating (Rate)</label
+          >
           <input
             formControlName="rate"
             type="number"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="
@@ -202,11 +210,13 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Rating (Count)</label>
+          <label class="block text-sm font-medium text-black mb-1"
+            >Rating (Count)</label
+          >
           <input
             formControlName="count"
             type="number"
-            class="w-full border border-gray-300 rounded px-3 py-2"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
           <div
             *ngIf="
@@ -231,7 +241,7 @@
       <div class="pt-4 flex justify-end">
         <button
           type="submit"
-          class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer disabled:cursor-default"
+          class="bg-lime-500 text-white px-4 py-2 rounded-xl hover:bg-lime-600 transition disabled:opacity-50 cursor-pointer disabled:cursor-default text-sm font-medium"
           [disabled]="form.invalid"
         >
           Save Product

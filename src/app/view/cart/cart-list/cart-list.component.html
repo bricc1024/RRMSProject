@@ -1,10 +1,10 @@
-<div class="p-6 space-y-6">
+<div class="p-6 space-y-6 bg-white">
   <div
     class="relative flex items-center justify-center py-4 border-b border-gray-200"
   >
     <a
       routerLink="/"
-      class="absolute left-4 text-gray-600 hover:text-blue-600 transition"
+      class="absolute left-4 text-gray-600 hover:text-lime-500 transition"
       aria-label="Back to Home"
     >
       <svg
@@ -23,25 +23,35 @@
       </svg>
     </a>
 
-    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Carts</h1>
+    <h1 class="text-4xl font-extrabold text-black tracking-tight">Carts</h1>
   </div>
 
-  <app-cart-detail
-    *ngIf="selectedCart"
-    [cart]="selectedCart"
-    [user]="getUser(selectedCart.userId)!"
-    [productMap]="getProductMap()"
-    (close)="onSelectCart(selectedCart)"
-  />
+  <ng-container *ngIf="loading(); else cartView">
+    <div class="flex justify-center items-center py-24">
+      <div
+        class="w-16 h-16 border-8 border-lime-500 border-t-transparent rounded-full animate-spin"
+      ></div>
+    </div>
+  </ng-container>
 
-  <div
-    class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-  >
-    <app-cart-card
-      *ngFor="let cart of carts"
-      [cart]="cart"
-      [user]="getUser(cart.userId)!"
-      (select)="onSelectCart(cart)"
+  <ng-template #cartView>
+    <app-cart-detail
+      *ngIf="selectedCart"
+      [cart]="selectedCart"
+      [user]="getUser(selectedCart.userId)!"
+      [productMap]="getProductMap()"
+      (close)="onSelectCart(selectedCart)"
     />
-  </div>
+
+    <div
+      class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <app-cart-card
+        *ngFor="let cart of carts"
+        [cart]="cart"
+        [user]="getUser(cart.userId)!"
+        (select)="onSelectCart(cart)"
+      />
+    </div>
+  </ng-template>
 </div>

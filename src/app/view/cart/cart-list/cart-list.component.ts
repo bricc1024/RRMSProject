@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CartService } from '../../../shared/service/cart.service';
 import { UserService } from '../../../shared/service/user.service';
 import { ProductService } from '../../../shared/service/product.service';
@@ -22,6 +22,7 @@ export class CartListComponent implements OnInit {
   products: Product[] = [];
 
   selectedCart: Cart | null = null;
+  loading = signal(true);
 
   ngOnInit(): void {
     combineLatest([
@@ -32,6 +33,7 @@ export class CartListComponent implements OnInit {
       this.carts = carts;
       this.users = users;
       this.products = products;
+      this.loading.set(false);
     });
   }
 

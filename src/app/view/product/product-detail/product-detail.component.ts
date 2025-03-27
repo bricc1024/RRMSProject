@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  HostListener,
-} from '@angular/core';
+import { Component, Input, HostListener, output, input } from '@angular/core';
 import { Product } from '../../../shared/model/product.model';
 import { CommonModule } from '@angular/common';
 
@@ -14,8 +8,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class ProductDetailComponent {
-  @Input() product!: Product;
-  @Output() close = new EventEmitter<void>();
+  product = input.required<Product>();
+  close = output<void>();
 
   onClose() {
     this.close.emit();

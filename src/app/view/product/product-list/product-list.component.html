@@ -1,10 +1,10 @@
-<div class="p-6 space-y-6">
+<div class="p-6 space-y-6 bg-white">
   <div
     class="relative flex items-center justify-center py-4 border-b border-gray-200"
   >
     <a
       routerLink="/"
-      class="absolute left-4 text-gray-600 hover:text-blue-600 transition"
+      class="absolute left-4 text-gray-600 hover:text-lime-500 transition"
       aria-label="Back to Home"
     >
       <svg
@@ -23,39 +23,47 @@
       </svg>
     </a>
 
-    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">
-      Products
-    </h1>
+    <h1 class="text-4xl font-extrabold text-black tracking-tight">Products</h1>
   </div>
 
-  <app-product-detail
-    *ngIf="selectedProduct()"
-    [product]="selectedProduct()!"
-    (close)="handleCloseDetail()"
-  ></app-product-detail>
-
-  <app-product-form
-    *ngIf="showForm()"
-    (save)="handleProductSave($event)"
-    (close)="showForm.set(false)"
-  ></app-product-form>
-
-  <ng-container *ngIf="products$ | async as products">
-    <div
-      class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-    >
-      <app-product-card
-        *ngFor="let product of products"
-        [product]="product"
-        (select)="handleSelect(product)"
-      ></app-product-card>
-
+  <ng-container *ngIf="loading(); else productView">
+    <div class="flex justify-center items-center py-24">
       <div
-        class="flex items-center justify-center border-2 border-dashed border-blue-400 rounded-2xl p-6 text-blue-600 cursor-pointer hover:bg-blue-50 transition"
-        (click)="toggleForm()"
-      >
-        <span class="text-4xl font-bold">+</span>
-      </div>
+        class="w-16 h-16 border-8 border-lime-500 border-t-transparent rounded-full animate-spin"
+      ></div>
     </div>
   </ng-container>
+
+  <ng-template #productView>
+    <app-product-detail
+      *ngIf="selectedProduct()"
+      [product]="selectedProduct()!"
+      (close)="handleCloseDetail()"
+    ></app-product-detail>
+
+    <app-product-form
+      *ngIf="showForm()"
+      (save)="handleProductSave($event)"
+      (close)="showForm.set(false)"
+    ></app-product-form>
+
+    <ng-container *ngIf="products$ | async as products">
+      <div
+        class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
+        <app-product-card
+          *ngFor="let product of products"
+          [product]="product"
+          (select)="handleSelect(product)"
+        ></app-product-card>
+
+        <div
+          class="flex items-center justify-center border-2 border-dashed border-lime-400 rounded-2xl p-6 text-lime-600 cursor-pointer hover:bg-lime-50 transition"
+          (click)="toggleForm()"
+        >
+          <span class="text-4xl font-bold">+</span>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
 </div>

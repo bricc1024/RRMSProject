@@ -14,34 +14,53 @@
       &times;
     </button>
 
-    <h2 class="text-2xl font-semibold mb-4">Cart Details</h2>
+    <h2 class="text-2xl font-bold text-black mb-6">Cart Details</h2>
 
-    <div *ngIf="user() as u" class="mb-6">
-      <h3 class="text-lg font-semibold mb-2">User Info</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+    <ng-container *ngIf="user(); else guestUser">
+      <h3 class="text-lg font-semibold text-black mb-3">User Info</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-8">
         <p>
-          <span class="font-medium">Name:</span> {{ u.firstname }}
-          {{ u.lastname }}
+          <span class="text-black font-medium">Name:</span>
+          <span class="text-gray-700">
+            {{ user()?.firstname }} {{ user()?.lastname }}</span
+          >
         </p>
-        <p><span class="font-medium">Email:</span> {{ u.email }}</p>
         <p>
-          <span class="font-medium">Location:</span> {{ u.city }},
-          {{ u.state }} {{ u.zipcode }}
+          <span class="text-black font-medium">Email:</span>
+          <span class="text-gray-700"> {{ user()?.email }}</span>
         </p>
-        <p><span class="font-medium">Phone:</span> {{ u.phone }}</p>
+        <p>
+          <span class="text-black font-medium">Location:</span>
+          <span class="text-gray-700">
+            {{ user()?.city }}, {{ user()?.state }} {{ user()?.zipcode }}</span
+          >
+        </p>
+        <p>
+          <span class="text-black font-medium">Phone:</span>
+          <span class="text-gray-700"> {{ user()?.phone }}</span>
+        </p>
       </div>
-    </div>
+    </ng-container>
 
-    <div class="mb-4">
-      <h3 class="text-lg font-semibold mb-2">Items</h3>
-      <div *ngFor="let item of cartItemsDetailed()" class="mb-3 border-b pb-2">
-        <p class="font-medium">
+    <ng-template #guestUser>
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-black mb-2">User Info</h3>
+        <p class="text-sm text-gray-500 italic">
+          This cart was created by a guest user
+        </p>
+      </div>
+    </ng-template>
+
+    <div>
+      <h3 class="text-lg font-semibold text-black mb-3">Items</h3>
+      <div *ngFor="let item of cartItemsDetailed()" class="mb-5 text-sm">
+        <p class="font-semibold text-black">
           {{ item.product?.name || "Unknown Product" }}
         </p>
-        <p class="text-sm text-gray-600 italic">
+        <p class="text-gray-500 italic">
           {{ item.product?.description || "No description available" }}
         </p>
-        <p class="text-sm text-gray-700">Quantity: {{ item.quantity }}</p>
+        <p class="text-gray-700">Quantity: {{ item.quantity }}</p>
       </div>
     </div>
   </div>

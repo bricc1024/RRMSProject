@@ -1,9 +1,12 @@
 <div
-  class="bg-white shadow-md rounded-2xl p-4 cursor-pointer hover:shadow-lg transition"
+  class="bg-white border border-gray-200 rounded-xl p-4 hover:bg-gray-50 hover:shadow-md transition-all duration-200 cursor-pointer"
   (click)="onSelect()"
 >
-  <h2 class="text-xl font-semibold mb-2">{{ product.name }}</h2>
-  <p class="text-sm text-gray-600">Category: {{ product.category }}</p>
-  <p class="text-sm text-gray-600">Price: ${{ product.price }}</p>
-  <p class="text-sm text-gray-600">In Stock: {{ product.stock }}</p>
+  <h2 class="text-lg font-semibold text-black mb-2 truncate">
+    {{ product().name }}
+  </h2>
+
+  <p class="text-sm text-gray-500 mb-1">Category: {{ product().category }}</p>
+  <p class="text-sm text-gray-500 mb-1">Price: ${{ product().price }}</p>
+  <p class="text-sm text-gray-500">In Stock: {{ product().stock }}</p>
 </div>

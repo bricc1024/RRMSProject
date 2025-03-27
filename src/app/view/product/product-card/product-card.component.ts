@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Product } from '../../../shared/model/product.model';
 
 @Component({
@@ -6,10 +6,10 @@ import { Product } from '../../../shared/model/product.model';
   templateUrl: './product-card.component.html',
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
-  @Output() select = new EventEmitter<Product>();
+  product = input.required<Product>();
+  select = output<Product>();
 
   onSelect() {
-    this.select.emit(this.product);
+    this.select.emit(this.product());
   }
 }
